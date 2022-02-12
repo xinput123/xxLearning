@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>spring-bean</artifactId>
+    <artifactId>dependency-lookup</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -17,12 +17,6 @@
     </properties>
 
     <dependencies>
-        <!-- Spring IoC 核心依赖 -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-        </dependency>
-
         <!-- 复用 ioc-container-overview</artifactId> -->
         <dependency>
             <groupId>org.xinput</groupId>
@@ -31,5 +25,4 @@
             <scope>compile</scope>
         </dependency>
     </dependencies>
-
 </project>
