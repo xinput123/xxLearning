@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/beans/spring-context.xsd">
+
+<!--    <context:annotation-config/>-->
+<!--    -->
+<!--    <context:component-scan base-package="org.acme"/>-->
+
+    <bean id="user" class="com.xinput.thinking.in.spring.ioc.overview.domain.User">
+        <property name="id" value="1"/>
+        <property name="name" value="xinput"/>
+        <property name="city" value="BEIJING"/>
+        <property name="workCities" value="BEIJING,WUHU"/>
+<!--        <property name="lifeCities" value="BEIJING,SHANGHAI"/>-->
+        <property name="lifeCities">
+            <list>
+                <value>BEIJING</value>
+                <value>SHANGHAI</value>
+            </list>
+        </property>
+        <property name="configFileLocation" value="classpath:/META-INF/user-config.properties"/>
+    </bean>
+
+<!--    <bean id="user2" class="com.xinput.thinking.in.spring.ioc.overview.domain.User">-->
+<!--        <property name="id" value="2"/>-->
+<!--        <property name="name" value="xinput2"/>-->
+<!--    </bean>-->
+
+    <!--
+    primary="true"
+    当一个bean的primary设置为true，然后容器中有多个与该bean相同类型的其他bean，
+    此时，当使用@Autowired想要注入一个这个类型的bean时，就不会因为容器中存在多个
+    该类型的bean而出现异常。而是优先使用primary为true的bean。
+    -->
+    <bean id="superUser" class="com.xinput.thinking.in.spring.ioc.overview.domain.SuperUser" parent="user"  primary="true">
+        <property name="addressss" value="安徽省马鞍山市"/>
+    </bean>
+
+    <bean id="objectFactory" class="org.springframework.beans.factory.config.ObjectFactoryCreatingFactoryBean">
+        <property name="targetBeanName" value="user"/>
+    </bean>
+
+</beans>
