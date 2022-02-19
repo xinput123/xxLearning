@@ -24,3 +24,11 @@
 ### BeanFactory.getBean 是否是线程安全的
 
 - 是安全的。有互斥锁
+
+### singleton 是否在一个应用里是唯一的？
+
+不是，singleton 仅在当前 Spring IoC 容器(BeanFactory)中是单例对象。 而一个应用可能有多个应用上下文。
+
+### "application" Bean 是否被其他方案代替。
+
+可以的。实际上，"application" Bean 与 "singleton" Bean 没有本质区别。无非就是在某个地方存储了一下，实际上它对后面的对象引用也是同一个。
