@@ -4,6 +4,8 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <bean class="com.xinput.thinking.in.spring.bean.lifecyle.MyInstantiationAwareBeanPostProcessor"/>
+
     <bean id="userHolder" class="com.xinput.thinking.in.spring.bean.lifecyle.UserHodler" autowire="constructor">
         <!-- 通过 XML 元素配置-->
 <!--           <property name="num" value="1"/>-->
