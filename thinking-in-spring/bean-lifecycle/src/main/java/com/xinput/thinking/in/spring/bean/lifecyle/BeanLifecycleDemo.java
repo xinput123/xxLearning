@@ -6,20 +6,22 @@ import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.annotation.CommonAnnotationBeanPostProcessor;
 
 /**
- * Bean 实例化生命周期
+ * TODO
+ *
+ * @author yuan.lai
+ * @since
  */
-public class BeanInitializationLifecycleDemo {
-  public static void main(String[] args) {
-    executeBeanFactory();
-  }
+public class BeanLifecycleDemo {
 
-  private static void executeBeanFactory() {
+  public static void main(String[] args) {
     // 创建 BeanFactory
     DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
     // 添加 BeanPostProcessor 实现(实例)
     beanFactory.addBeanPostProcessor(new MyInstantiationAwareBeanPostProcessor());
     // 添加 CommonAnnotationBeanPostProcessor 解决 @PostConstruct 回调问题
     beanFactory.addBeanPostProcessor(new CommonAnnotationBeanPostProcessor());
+    // 添加 MyDestructionAwareBeanPostProcessor 执行销毁前回调
+    beanFactory.addBeanPostProcessor(new MyDestructionAwareBeanPostProcessor());
 
     // 基于 XML 资源 BeanDefinitionReader 实现
     XmlBeanDefinitionReader beanDefinitionReader = new XmlBeanDefinitionReader(beanFactory);
@@ -42,6 +44,9 @@ public class BeanInitializationLifecycleDemo {
     UserHolder userHolder = beanFactory.getBean("userHolder", UserHolder.class);
 
     System.out.println(userHolder);
+
+    beanFactory.destroyBean("userHolder", UserHolder.class);
+    // bean 的销毁并不意味着 Bean 垃圾回收了
+    System.out.println(userHolder);
   }
 }
-

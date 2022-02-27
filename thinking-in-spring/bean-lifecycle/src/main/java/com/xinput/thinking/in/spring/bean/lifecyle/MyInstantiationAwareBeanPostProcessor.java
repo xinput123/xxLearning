@@ -42,7 +42,7 @@ class MyInstantiationAwareBeanPostProcessor implements InstantiationAwareBeanPos
   public PropertyValues postProcessProperties(PropertyValues pvs, Object bean, String beanName)
       throws BeansException {
     // 对 userHolder Bean 进行拦截
-    if (ObjectUtils.nullSafeEquals("userHolder", beanName) && UserHodler.class.equals(bean.getClass())) {
+    if (ObjectUtils.nullSafeEquals("userHolder", beanName) && UserHolder.class.equals(bean.getClass())) {
       // 假设 <property name="num" value="1"/> 配置的话，那么在 PropertyValues 就包含一个 PropertyValue(number=1)
       final MutablePropertyValues propertyValues;
       if (pvs instanceof MutablePropertyValues) {
@@ -72,10 +72,10 @@ class MyInstantiationAwareBeanPostProcessor implements InstantiationAwareBeanPos
 
   @Override
   public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-    if (ObjectUtils.nullSafeEquals("userHolder", beanName) && UserHodler.class.equals(bean.getClass())) {
-      UserHodler userHodler = (UserHodler) bean;
-      // UserHodler description = "The user holder V2"
-      userHodler.setDescription("The user holder V3");
+    if (ObjectUtils.nullSafeEquals("userHolder", beanName) && UserHolder.class.equals(bean.getClass())) {
+      UserHolder userHolder = (UserHolder) bean;
+      // UserHolder description = "The user holder V2"
+      userHolder.setDescription("The user holder V3");
     }
 
     return bean;
@@ -83,11 +83,11 @@ class MyInstantiationAwareBeanPostProcessor implements InstantiationAwareBeanPos
 
   @Override
   public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-    if (ObjectUtils.nullSafeEquals("userHolder", beanName) && UserHodler.class.equals(bean.getClass())) {
-      UserHodler userHodler = (UserHodler) bean;
+    if (ObjectUtils.nullSafeEquals("userHolder", beanName) && UserHolder.class.equals(bean.getClass())) {
+      UserHolder userHolder = (UserHolder) bean;
       // init() = The user holder V6
-      // UserHodler description = "The user holder V6"
-      userHodler.setDescription("The user holder V7");
+      // UserHolder description = "The user holder V6"
+      userHolder.setDescription("The user holder V7");
     }
 
     return bean;

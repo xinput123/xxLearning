@@ -19,7 +19,7 @@ import javax.annotation.PostConstruct;
  * @author yuan.lai
  * @since
  */
-public class UserHodler implements BeanNameAware, BeanClassLoaderAware, BeanFactoryAware,
+public class UserHolder implements BeanNameAware, BeanClassLoaderAware, BeanFactoryAware,
     EnvironmentAware, InitializingBean, SmartInitializingSingleton {
 
   private final User user;
@@ -36,11 +36,11 @@ public class UserHodler implements BeanNameAware, BeanClassLoaderAware, BeanFact
 
   private Environment environment;
 
-  public UserHodler(User user) {
+  public UserHolder(User user) {
     this.user = user;
   }
 
-  public UserHodler(User user, int num) {
+  public UserHolder(User user, int num) {
     this.user = user;
     this.num = num;
   }
@@ -90,7 +90,7 @@ public class UserHodler implements BeanNameAware, BeanClassLoaderAware, BeanFact
 
   @Override
   public String toString() {
-    return "UserHodler{" +
+    return "UserHolder{" +
         "user=" + user +
         ", num=" + num +
         ", description='" + description + '\'' +

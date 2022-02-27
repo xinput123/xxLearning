@@ -28,7 +28,6 @@ public class BeanInstantiationLifecycleDemo {
     XmlBeanDefinitionReader beanDefinitionReader = new XmlBeanDefinitionReader(beanFactory);
 
     // XML 配置文件 ClassPath 路径
-    // XML 配置文件 ClassPath 路径
     String[] location = {"META-INF/dependency-lookup-context.xml", "MATE-INF/bean-constructor-dependency-injection.xml"};
     // 基于 Classpath 加载 XML 文件
     int beanDefinitions = beanDefinitionReader.loadBeanDefinitions(location);
@@ -38,7 +37,7 @@ public class BeanInstantiationLifecycleDemo {
     System.out.println(user);
     User superUser = beanFactory.getBean("superUser", User.class);
     System.out.println(superUser);
-    UserHodler userHolder = beanFactory.getBean("userHolder", UserHodler.class);
+    UserHolder userHolder = beanFactory.getBean("userHolder", UserHolder.class);
     System.out.println(userHolder);
   }
 
@@ -55,7 +54,7 @@ public class BeanInstantiationLifecycleDemo {
     System.out.println(user);
     User superUser = applicationContext.getBean("superUser", User.class);
     System.out.println(superUser);
-    UserHodler userHolder = applicationContext.getBean("userHolder", UserHodler.class);
+    UserHolder userHolder = applicationContext.getBean("userHolder", UserHolder.class);
     System.out.println(userHolder);
 
     // 关闭应用上下文
