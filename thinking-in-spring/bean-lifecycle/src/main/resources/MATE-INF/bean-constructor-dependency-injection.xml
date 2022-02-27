@@ -6,7 +6,7 @@
 
     <bean class="com.xinput.thinking.in.spring.bean.lifecyle.MyInstantiationAwareBeanPostProcessor"/>
 
-    <bean id="userHolder" class="com.xinput.thinking.in.spring.bean.lifecyle.UserHodler" autowire="constructor">
+    <bean id="userHolder" class="com.xinput.thinking.in.spring.bean.lifecyle.UserHodler" autowire="constructor" init-method="init">
         <!-- 通过 XML 元素配置-->
 <!--           <property name="num" value="1"/>-->
         <property name="description" value="The user holder"/>
