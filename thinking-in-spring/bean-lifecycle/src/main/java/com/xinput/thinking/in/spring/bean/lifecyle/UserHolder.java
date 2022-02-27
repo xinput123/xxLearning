@@ -6,12 +6,14 @@ import org.springframework.beans.factory.BeanClassLoaderAware;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.BeanNameAware;
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.SmartInitializingSingleton;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.Environment;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 /**
  * User Hodler 类
@@ -20,7 +22,7 @@ import javax.annotation.PostConstruct;
  * @since
  */
 public class UserHolder implements BeanNameAware, BeanClassLoaderAware, BeanFactoryAware,
-    EnvironmentAware, InitializingBean, SmartInitializingSingleton {
+    EnvironmentAware, InitializingBean, SmartInitializingSingleton, DisposableBean {
 
   private final User user;
 
@@ -88,6 +90,26 @@ public class UserHolder implements BeanNameAware, BeanClassLoaderAware, BeanFact
     System.out.println("init() = " + this.description);
   }
 
+  @PreDestroy
+  public void preDestroy() {
+    // postProcessBeforeDestruction: The user holder V9
+    this.description = "The user holder V10";
+    System.out.println("preDestroy() = " + this.description);
+  }
+
+  @Override
+  public void destroy() throws Exception {
+    // preDestroy: The user holder V10
+    this.description = "The user holder V11";
+    System.out.println("destroy() = " + this.description);
+  }
+
+  public void doDestroy() {
+    // destroy: The user holder V11
+    this.description = "The user holder V12";
+    System.out.println("destroy() = " + this.description);
+  }
+
   @Override
   public String toString() {
     return "UserHolder{" +
@@ -123,5 +145,9 @@ public class UserHolder implements BeanNameAware, BeanClassLoaderAware, BeanFact
     // postProcessAfterInitialization V7 -> afterSingletonsInstantiated V8
     this.description = "The user holder V8";
     System.out.println("afterSingletonsInstantiated() = " + this.description);
+  }
+
+  protected void finalize() throws Throwable {
+    System.out.println("UserHolder is finalized...");
   }
 }
