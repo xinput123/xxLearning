@@ -34,18 +34,16 @@ public class AnnotatedSpringIoCContainerMetadataConfigurationDemo {
 
   public static void main(String[] args) {
     AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-
     // 注册当前类作为 Configuration Class
     context.register(AnnotatedSpringIoCContainerMetadataConfigurationDemo.class);
-    // 启动应用上下文
+    // 启动 Spring 应用上下文
     context.refresh();
-
-    Map<String, User> userMap = context.getBeansOfType(User.class);
-    for (Map.Entry<String, User> entry : userMap.entrySet()) {
-      System.out.printf("User Bean name: %s, content : %s \n", entry.getKey(), entry.getValue());
+    // beanName 和 bean 映射
+    Map<String, User> usersMap = context.getBeansOfType(User.class);
+    for (Map.Entry<String, User> entry : usersMap.entrySet()) {
+      System.out.printf("User Bean name : %s , content : %s \n", entry.getKey(), entry.getValue());
     }
-
-    // 关闭应用上下文
+    // 关闭 Spring 应用上下文
     context.close();
   }
 }
