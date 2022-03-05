@@ -1,0 +1,2 @@
+## 定义 namespace 与 NamespaceHandler 的映射
+http\://xx.xinput.org/schema/users=com.xinput.thinking.in.spring.configuration.metadata.UsersNamespaceHandler
