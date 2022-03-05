@@ -4,28 +4,26 @@ import com.xinput.thinking.in.spring.ioc.overview.domain.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.MapPropertySource;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 基于 Java 注解 Spring IoC 容器元信息配置 示例
+ * 外部化配置示例
+ *
+ * @author yuan.lai
+ * @since
  */
-// 将当前类作为 Configuration Class
-@ImportResource("classpath:/META-INF/dependency-lookup-context.xml")
-@Import(User.class)
-@PropertySource("classpath:/META-INF/user-bean-definitions.properties") // Java 8+ @Repeatable 支持
 @PropertySource("classpath:/META-INF/user-bean-definitions.properties")
-//@PropertySources("")
-public class AnnotatedSpringIoCContainerMetadataConfigurationDemo {
+public class PropertySourceDemo {
 
   /**
    * user.name 是 Java Properties 默认存在，当前用户：yuanlai，而非配置文件中定义"原小来"
    */
   @Bean
-  public User configuredUser(@Value("${user.id}") Long id, @Value("${user.name}") String name) {
+  public User user(@Value("${user.id}") Long id, @Value("${user.name}") String name) {
     User user = new User();
     user.setId(id);
     user.setName(name);
@@ -34,15 +32,26 @@ public class AnnotatedSpringIoCContainerMetadataConfigurationDemo {
 
   public static void main(String[] args) {
     AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+
+    // 扩展 Enviroment 中的 PropertySources
+    // 添加 PropertySource 操作必须在 refresh 方法之前完成
+    Map<String, Object> propertieSource = new HashMap();
+    propertieSource.put("user.name", "yuanxiaolai");
+    org.springframework.core.env.PropertySource propertySource = new MapPropertySource("first-property-source", propertieSource);
+    context.getEnvironment().getPropertySources().addFirst(propertySource);
+
     // 注册当前类作为 Configuration Class
-    context.register(AnnotatedSpringIoCContainerMetadataConfigurationDemo.class);
+    context.register(PropertySourceDemo.class);
     // 启动 Spring 应用上下文
     context.refresh();
-    // beanName 和 bean 映射
-    Map<String, User> usersMap = context.getBeansOfType(User.class);
-    for (Map.Entry<String, User> entry : usersMap.entrySet()) {
+
+    Map<String, User> userMap = context.getBeansOfType(User.class);
+    for (Map.Entry<String, User> entry : userMap.entrySet()) {
       System.out.printf("User Bean name : %s , content : %s \n", entry.getKey(), entry.getValue());
     }
+
+    System.out.println(context.getEnvironment().getPropertySources());
+
     // 关闭 Spring 应用上下文
     context.close();
   }
