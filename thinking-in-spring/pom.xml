@@ -17,6 +17,7 @@
         <module>bean-scope</module>
         <module>bean-lifecycle</module>
         <module>configuration-metadata</module>
+        <module>i18n</module>
     </modules>
 
     <properties>
