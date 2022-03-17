@@ -26,6 +26,8 @@ public class User implements BeanNameAware {
 
   private Resource configFileLocation;
 
+  private Company company;
+
   // 当前 BeanName
   private transient String beanName;
 
@@ -77,6 +79,14 @@ public class User implements BeanNameAware {
     this.configFileLocation = configFileLocation;
   }
 
+  public Company getCompany() {
+    return company;
+  }
+
+  public void setCompany(Company company) {
+    this.company = company;
+  }
+
   public String getBeanName() {
     return beanName;
   }
@@ -90,6 +100,8 @@ public class User implements BeanNameAware {
         ", workCities=" + Arrays.toString(workCities) +
         ", lifeCities=" + lifeCities +
         ", configFileLocation=" + configFileLocation +
+        ", company=" + company +
+        ", beanName='" + beanName + '\'' +
         '}';
   }
 
