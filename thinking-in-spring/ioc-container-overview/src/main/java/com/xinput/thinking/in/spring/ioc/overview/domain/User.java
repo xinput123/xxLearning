@@ -31,6 +31,8 @@ public class User implements BeanNameAware {
 
   private Properties context;
 
+  private String contextAsText;
+
   // 当前 BeanName
   private transient String beanName;
 
@@ -102,6 +104,14 @@ public class User implements BeanNameAware {
     this.context = context;
   }
 
+  public String getContextAsText() {
+    return contextAsText;
+  }
+
+  public void setContextAsText(String contextAsText) {
+    this.contextAsText = contextAsText;
+  }
+
   @Override
   public String toString() {
     return "User{" +
@@ -113,6 +123,7 @@ public class User implements BeanNameAware {
         ", configFileLocation=" + configFileLocation +
         ", company=" + company +
         ", context=" + context +
+        ", contextAsText='" + contextAsText + '\'' +
         ", beanName='" + beanName + '\'' +
         '}';
   }
